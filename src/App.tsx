@@ -23,7 +23,7 @@ const App: FC = () => {
         display="flex"
         justifyContent="center"
       >
-        <Box height="100%" width="100%" maxWidth="500px">
+        <Box height="100%" width="100%" overflow="hidden">
           <MindArRenderer />
         </Box>
       </Box>
