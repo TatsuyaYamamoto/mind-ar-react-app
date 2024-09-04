@@ -24,8 +24,7 @@ const MindArRenderer: FC = () => {
 
     const mindArThree = new MindARThree({
       container: wrapper,
-      imageTargetSrc:
-        "https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.0/examples/image-tracking/assets/card-example/card.mind",
+      imageTargetSrc: "/data.mind",
       uiScanning: "no",
       uiLoading: "no",
     });
