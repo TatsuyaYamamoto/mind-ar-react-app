@@ -5,11 +5,6 @@ import * as THREE from "three";
 import { Box } from "@chakra-ui/react";
 import { css } from "@emotion/react";
 
-import dairi from "../assets/_dairi_fire.png";
-import ayumu from "../assets/ayumu.png";
-import ren from "../assets/ren.png";
-import ruby from "../assets/ruby.png";
-
 const rootStyle = css({
   position: "relative",
   width: "100%",
@@ -19,21 +14,14 @@ const rootStyle = css({
   },
 });
 
-const loader = new THREE.TextureLoader();
+interface Props {
+  anchors: {
+    index: number;
+    meshes: THREE.Mesh[];
+  }[];
+}
 
-const createMesh = async (src: string) => {
-  const map = await loader.loadAsync(src);
-  const mesh = new THREE.Mesh(
-    new THREE.PlaneGeometry(),
-    new THREE.MeshBasicMaterial({
-      transparent: true,
-      map,
-    }),
-  );
-  return mesh;
-};
-
-const MindArRenderer: FC = () => {
+const MindArRenderer: FC<Props> = ({ anchors }) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -48,17 +36,8 @@ const MindArRenderer: FC = () => {
       uiLoading: "no",
     });
 
-    createMesh(dairi).then((mesh) => {
-      mindArThree.addAnchor(0).group.add(mesh);
-    });
-    createMesh(ayumu).then((mesh) => {
-      mindArThree.addAnchor(1).group.add(mesh);
-    });
-    createMesh(ren).then((mesh) => {
-      mindArThree.addAnchor(2).group.add(mesh);
-    });
-    createMesh(ruby).then((mesh) => {
-      mindArThree.addAnchor(3).group.add(mesh);
+    anchors.map((anchor) => {
+      mindArThree.addAnchor(anchor.index).group.add(...anchor.meshes);
     });
 
     const { renderer, scene, camera } = mindArThree;
@@ -76,7 +55,7 @@ const MindArRenderer: FC = () => {
         wrapper.remove();
       });
     };
-  }, []);
+  }, [anchors]);
 
   return <Box css={rootStyle} ref={containerRef} />;
 };
