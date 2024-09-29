@@ -1,6 +1,4 @@
 import { type FC, useMemo } from "react";
-import { Box } from "@chakra-ui/react";
-import { css, Global } from "@emotion/react";
 
 import MindArRenderer from "./components/MindArRenderer.tsx";
 import { useLoader } from "@react-three/fiber";
@@ -11,6 +9,8 @@ import ayumuPng from "./assets/ayumu.png";
 import renPng from "./assets/ren.png";
 import rubyPng from "./assets/ruby.png";
 import { createMesh } from "./utils.ts";
+
+import "./App.css";
 
 const App: FC = () => {
   const dairiTexture = useLoader(THREE.TextureLoader, dairiPng);
@@ -41,22 +41,16 @@ const App: FC = () => {
 
   return (
     <>
-      <Global
-        styles={css`
-          body {
-            margin: 0;
-          }
-
-          html,
-          body,
-          div#root {
-            height: 100%;
-          }
-        `}
-      />
-      <Box position="relative" height="100%" width="100%" overflow="hidden">
+      <div
+        style={{
+          position: "relative",
+          height: "100%",
+          width: "100%",
+          overflow: "hidden",
+        }}
+      >
         <MindArRenderer anchors={anchors} />
-      </Box>
+      </div>
     </>
   );
 };
