@@ -2,17 +2,6 @@ import { type FC, useEffect, useRef } from "react";
 
 import { MindARThree } from "mind-ar/dist/mindar-image-three.prod.js";
 import * as THREE from "three";
-import { Box } from "@chakra-ui/react";
-import { css } from "@emotion/react";
-
-const rootStyle = css({
-  position: "relative",
-  width: "100%",
-  height: "100%",
-  "& video": {
-    maxWidth: "unset",
-  },
-});
 
 interface Props {
   anchors: {
@@ -26,8 +15,8 @@ const MindArRenderer: FC<Props> = ({ anchors }) => {
 
   useEffect(() => {
     const wrapper = document.createElement("div");
-    wrapper.style.width = "inherit";
-    wrapper.style.height = "inherit";
+    wrapper.style.width = "100%";
+    wrapper.style.height = "100%";
 
     const mindArThree = new MindARThree({
       container: wrapper,
@@ -57,7 +46,7 @@ const MindArRenderer: FC<Props> = ({ anchors }) => {
     };
   }, [anchors]);
 
-  return <Box css={rootStyle} ref={containerRef} />;
+  return <div style={{ display: "contents" }} ref={containerRef} />;
 };
 
 export default MindArRenderer;

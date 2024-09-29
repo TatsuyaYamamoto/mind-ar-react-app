@@ -43,6 +43,10 @@ const App: FC = () => {
     <>
       <Global
         styles={css`
+          body {
+            margin: 0;
+          }
+
           html,
           body,
           div#root {
@@ -50,16 +54,8 @@ const App: FC = () => {
           }
         `}
       />
-      <Box
-        position="relative"
-        height="100%"
-        width="100%"
-        display="flex"
-        justifyContent="center"
-      >
-        <Box height="100%" width="100%" overflow="hidden">
-          <MindArRenderer anchors={anchors} />
-        </Box>
+      <Box position="relative" height="100%" width="100%" overflow="hidden">
+        <MindArRenderer anchors={anchors} />
       </Box>
     </>
   );
