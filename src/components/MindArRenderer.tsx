@@ -11,15 +11,15 @@ interface Props {
 }
 
 const MindArRenderer: FC<Props> = ({ anchors }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const wrapperElRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const wrapper = document.createElement("div");
-    wrapper.style.width = "100%";
-    wrapper.style.height = "100%";
+    const container = document.createElement("div");
+    container.style.width = "100%";
+    container.style.height = "100%";
 
     const mindArThree = new MindARThree({
-      container: wrapper,
+      container,
       imageTargetSrc: "/data.mind",
       uiScanning: "no",
       uiLoading: "no",
@@ -35,18 +35,18 @@ const MindArRenderer: FC<Props> = ({ anchors }) => {
       renderer.render(scene, camera);
     });
 
-    containerRef.current?.append(wrapper);
+    wrapperElRef.current?.append(container);
 
     return () => {
       renderer.setAnimationLoop(null);
       startPromise.then(() => {
         mindArThree.stop();
-        wrapper.remove();
+        container.remove();
       });
     };
   }, [anchors]);
 
-  return <div style={{ display: "contents" }} ref={containerRef} />;
+  return <div style={{ display: "contents" }} ref={wrapperElRef} />;
 };
 
 export default MindArRenderer;
